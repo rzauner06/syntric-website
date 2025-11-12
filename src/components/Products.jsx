@@ -24,7 +24,11 @@ const ProductCard = ({ product, index }) => {
             initial={{ scale: 0, rotate: -180 }}
             animate={isInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
             transition={{ duration: 0.6, delay: index * 0.2 + 0.2, type: 'spring', stiffness: 200 }}
-            whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
+            whileHover={{
+              rotate: [0, -10, 10, 0],
+              scale: 1.1,
+              transition: { duration: 0.5 }
+            }}
             className="text-6xl mb-6 inline-block"
           >
             {product.icon}

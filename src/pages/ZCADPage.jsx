@@ -197,7 +197,10 @@ const ZCADPage = () => {
                   initial={{ scale: 0, rotate: -180 }}
                   animate={isHighlightsInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
                   transition={{ duration: 0.6, delay: index * 0.15 + 0.2, type: 'spring', stiffness: 200 }}
-                  whileHover={{ rotate: [0, -10, 10, 0] }}
+                  whileHover={{
+                    rotate: [0, -10, 10, 0],
+                    transition: { duration: 0.5 }
+                  }}
                   className="text-5xl mb-4 inline-block"
                 >
                   {highlight.icon}
