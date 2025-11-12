@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import AllProducts from './pages/AllProducts';
 import ProductDetail from './pages/ProductDetail';
 import ZCADPage from './pages/ZCADPage';
+import Q1Product from './pages/Q1Product';
 import Features from './components/Features';
 import Footer from './components/Footer';
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<AllProducts />} />
           <Route path="/products/zcad" element={<ZCADPage />} />
+          <Route path="/products/q1" element={<Q1Product />} />
           <Route path="/products/:slug" element={<ProductDetail />} />
           <Route path="/features" element={<div className="pt-20"><Features /><Footer /></div>} />
           <Route path="/about" element={
