@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -11,6 +14,24 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleNavClick = (e, sectionId) => {
+    e.preventDefault();
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <motion.nav
@@ -22,25 +43,43 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-2xl font-bold tracking-tight"
-          >
-            <span className="text-gradient">SYNTRIQ</span>
-          </motion.div>
+          <Link to="/">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-2xl font-bold tracking-tight cursor-pointer"
+            >
+              <span className="text-gradient">SYNTRIQ</span>
+            </motion.div>
+          </Link>
 
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#products" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+            <a
+              href="#products"
+              onClick={(e) => handleNavClick(e, 'products')}
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+            >
               Products
             </a>
-            <a href="#features" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+            <a
+              href="#features"
+              onClick={(e) => handleNavClick(e, 'features')}
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+            >
               Features
             </a>
-            <a href="#about" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+            <a
+              href="#about"
+              onClick={(e) => handleNavClick(e, 'about')}
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+            >
               About
             </a>
-            <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+            <a
+              href="#contact"
+              onClick={(e) => handleNavClick(e, 'contact')}
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+            >
               Contact
             </a>
             <motion.button

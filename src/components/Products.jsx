@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 
-const ProductCard = ({ title, description, features, index }) => {
+const ProductCard = ({ title, description, features, index, link }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -44,13 +45,25 @@ const ProductCard = ({ title, description, features, index }) => {
           ))}
         </ul>
 
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white py-3 rounded-full font-medium hover:from-blue-700 hover:to-blue-600 transition-all shadow-lg"
-        >
-          Learn More
-        </motion.button>
+        {link ? (
+          <Link to={link}>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white py-3 rounded-full font-medium hover:from-blue-700 hover:to-blue-600 transition-all shadow-lg"
+            >
+              Learn More
+            </motion.button>
+          </Link>
+        ) : (
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white py-3 rounded-full font-medium hover:from-blue-700 hover:to-blue-600 transition-all shadow-lg"
+          >
+            Learn More
+          </motion.button>
+        )}
       </div>
 
       {/* Hover effect background */}
@@ -62,15 +75,18 @@ const ProductCard = ({ title, description, features, index }) => {
 const Products = () => {
   const products = [
     {
-      title: "3D Printers",
-      description: "Industry-leading additive manufacturing solutions for rapid prototyping and production.",
+      title: "SYNTRIQ Q1",
+      description: "Our flagship 3D printer featuring CoreXY architecture, true multi-color printing, and record-breaking speeds.",
       features: [
-        "High-precision layer resolution",
-        "Multiple material support",
-        "Large build volume options",
-        "Advanced auto-calibration",
-        "Cloud connectivity"
-      ]
+        "CoreXY kinematics",
+        "Inductive heating technology",
+        "PEEK ready materials",
+        "Heated chamber",
+        "CE certified",
+        "Multi-toolhead system",
+        "500+ mm/s print speeds"
+      ],
+      link: "/products/q1"
     },
     {
       title: "CNC Machines",
