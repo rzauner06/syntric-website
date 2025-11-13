@@ -20,8 +20,8 @@ const FeatureItem = ({ icon, title, description, index }) => {
       >
         {icon}
       </motion.div>
-      <h3 className="text-2xl font-bold mb-3 text-gray-900">{title}</h3>
-      <p className="text-gray-600 leading-relaxed">{description}</p>
+      <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">{title}</h3>
+      <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{description}</p>
     </motion.div>
   );
 };
@@ -85,7 +85,7 @@ const Features = () => {
   ];
 
   return (
-    <section id="features" className="py-24 bg-gradient-to-b from-white to-gray-50">
+    <section id="features" className="py-24 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -94,10 +94,10 @@ const Features = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
             Why Choose <span className="text-gradient">SYNTRIQ</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Innovation meets reliability. Experience manufacturing equipment that's designed for the future.
           </p>
         </motion.div>
