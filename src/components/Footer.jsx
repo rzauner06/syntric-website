@@ -11,7 +11,7 @@ const Footer = () => {
   };
 
   return (
-    <footer id="contact" className="bg-gray-900 text-gray-300">
+    <footer id="contact" className="bg-gray-900 dark:bg-gray-950 text-gray-300 dark:text-gray-400 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Brand Section */}

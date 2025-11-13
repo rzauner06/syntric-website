@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MegaMenu from './Navigation/MegaMenu';
 import MobileMenu from './Navigation/MobileMenu';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -35,7 +36,7 @@ const Navbar = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? 'glass-effect shadow-lg' : 'bg-transparent'
+          scrolled ? 'glass-effect shadow-lg dark:bg-gray-800/80 dark:backdrop-blur-lg' : 'bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-4">
@@ -56,7 +57,7 @@ const Navbar = () => {
                 <motion.button
                   onMouseEnter={() => setMegaMenuOpen(true)}
                   whileHover={{ scale: 1.05 }}
-                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium flex items-center gap-1"
+                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium flex items-center gap-1"
                   onClick={(e) => {
                     e.stopPropagation();
                     setMegaMenuOpen(!megaMenuOpen);
@@ -84,7 +85,7 @@ const Navbar = () => {
               <Link to="/features">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
                 >
                   Features
                 </motion.div>
@@ -93,7 +94,7 @@ const Navbar = () => {
               <Link to="/about">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
                 >
                   About
                 </motion.div>
@@ -102,11 +103,13 @@ const Navbar = () => {
               <Link to="/contact">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
                 >
                   Contact
                 </motion.div>
               </Link>
+
+              <ThemeToggle />
 
               <Link to="/products/zcad">
                 <motion.button
@@ -119,12 +122,13 @@ const Navbar = () => {
               </Link>
             </div>
 
-            <div className="lg:hidden">
+            <div className="lg:hidden flex items-center gap-3">
+              <ThemeToggle />
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setMobileMenuOpen(true)}
-                className="text-gray-700"
+                className="text-gray-700 dark:text-gray-300"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />

@@ -16,7 +16,7 @@ const ProductCard = ({ product, index }) => {
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
         transition={{ duration: 0.6, delay: index * 0.2 }}
         whileHover={{ y: -10, scale: 1.02 }}
-        className="group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer"
+        className="group relative bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer"
       >
         <div className="relative z-10">
           {/* Icon with enhanced animation */}
@@ -34,8 +34,8 @@ const ProductCard = ({ product, index }) => {
             {product.icon}
           </motion.div>
 
-          <h3 className="text-3xl font-bold mb-4 text-gray-900 group-hover:text-blue-600 transition-colors">{product.name}</h3>
-          <p className="text-gray-600 mb-6 text-lg leading-relaxed">{product.tagline}</p>
+          <h3 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{product.name}</h3>
+          <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg leading-relaxed">{product.tagline}</p>
 
           <ul className="space-y-3 mb-8">
             {product.features.slice(0, 5).map((feature, i) => (
@@ -44,7 +44,7 @@ const ProductCard = ({ product, index }) => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                 transition={{ duration: 0.5, delay: index * 0.2 + i * 0.1 }}
-                className="flex items-center text-gray-700"
+                className="flex items-center text-gray-700 dark:text-gray-300"
               >
                 <motion.svg
                   initial={{ scale: 0 }}
@@ -81,7 +81,7 @@ const ProductCard = ({ product, index }) => {
         </div>
 
         {/* Hover effect background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 dark:from-blue-900/20 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </motion.div>
     </Link>
   );
@@ -92,7 +92,7 @@ const Products = () => {
   const upcomingProducts = getUpcomingProducts();
 
   return (
-    <section id="products" className="py-24 bg-gradient-to-b from-gray-50 to-white">
+    <section id="products" className="py-24 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <motion.div
@@ -102,10 +102,10 @@ const Products = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
             Our <span className="text-gradient">Solutions</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Cutting-edge manufacturing equipment and professional software designed for precision, reliability, and performance.
           </p>
         </motion.div>
