@@ -21,7 +21,7 @@ const ZCADPage = () => {
   if (!product) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
       {/* Hero Section */}
       <motion.section
         ref={heroRef}
@@ -76,7 +76,7 @@ const ZCADPage = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isHeroInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 font-bold mb-6 border-2 border-blue-200"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 text-blue-800 dark:text-blue-200 font-bold mb-6 border-2 border-blue-200 dark:border-blue-700 transition-colors duration-300"
             >
               <motion.span
                 animate={{
@@ -104,7 +104,7 @@ const ZCADPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-2xl md:text-3xl text-gray-700 mb-6 font-semibold"
+              className="text-2xl md:text-3xl text-gray-700 dark:text-gray-200 mb-6 font-semibold transition-colors duration-300"
             >
               {product.tagline}
             </motion.p>
@@ -114,7 +114,7 @@ const ZCADPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto mb-12 leading-relaxed"
+              className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed transition-colors duration-300"
             >
               {product.description}
             </motion.p>
@@ -140,7 +140,7 @@ const ZCADPage = () => {
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white text-blue-600 px-10 py-5 rounded-full font-bold text-lg border-2 border-blue-600 hover:bg-blue-50 transition-all shadow-lg"
+                className="bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 px-10 py-5 rounded-full font-bold text-lg border-2 border-blue-600 dark:border-blue-500 hover:bg-blue-50 dark:hover:bg-gray-700 transition-all shadow-lg"
               >
                 Watch Demo
               </motion.button>
@@ -151,7 +151,7 @@ const ZCADPage = () => {
               initial={{ opacity: 0 }}
               animate={isHeroInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
-              className="text-sm text-gray-500 mt-6"
+              className="text-sm text-gray-500 dark:text-gray-400 mt-6 transition-colors duration-300"
             >
               Early access available for waitlist members • Free Starter plan forever
             </motion.p>
@@ -160,13 +160,13 @@ const ZCADPage = () => {
       </motion.section>
 
       {/* Highlights Section */}
-      <section ref={highlightsRef} className="py-20 px-6 bg-white">
+      <section ref={highlightsRef} className="py-20 px-6 bg-white dark:bg-gray-800 transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isHighlightsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-4"
+            className="text-4xl md:text-5xl font-bold text-center text-gray-900 dark:text-white mb-4 transition-colors duration-300"
           >
             Why ZCAD is Different
           </motion.h2>
@@ -174,7 +174,7 @@ const ZCADPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isHighlightsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto"
+            className="text-xl text-gray-600 dark:text-gray-300 text-center mb-16 max-w-3xl mx-auto transition-colors duration-300"
           >
             A complete rethinking of electronic design automation for the modern era
           </motion.p>
@@ -191,7 +191,7 @@ const ZCADPage = () => {
                   boxShadow: '0 20px 50px -10px rgba(0, 0, 0, 0.15)',
                   y: -5
                 }}
-                className="p-8 bg-gradient-to-br from-blue-50 via-white to-purple-50 rounded-3xl border border-gray-200 hover:border-blue-300 transition-all"
+                className="p-8 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-700 dark:via-gray-800 dark:to-gray-700 rounded-3xl border border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-500 transition-all duration-300"
               >
                 <motion.div
                   initial={{ scale: 0, rotate: -180 }}
@@ -205,10 +205,10 @@ const ZCADPage = () => {
                 >
                   {highlight.icon}
                 </motion.div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 transition-colors duration-300">
                   {highlight.title}
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed transition-colors duration-300">
                   {highlight.description}
                 </p>
               </motion.div>
@@ -218,13 +218,13 @@ const ZCADPage = () => {
       </section>
 
       {/* Features Section */}
-      <section ref={featuresRef} className="py-20 px-6 bg-gradient-to-br from-gray-50 to-white">
+      <section ref={featuresRef} className="py-20 px-6 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isFeaturesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-4"
+            className="text-4xl md:text-5xl font-bold text-center text-gray-900 dark:text-white mb-4 transition-colors duration-300"
           >
             Comprehensive Feature Set
           </motion.h2>
@@ -232,7 +232,7 @@ const ZCADPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isFeaturesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto"
+            className="text-xl text-gray-600 dark:text-gray-300 text-center mb-12 max-w-3xl mx-auto transition-colors duration-300"
           >
             Everything you need for professional PCB design, from concept to manufacturing
           </motion.p>
@@ -249,7 +249,7 @@ const ZCADPage = () => {
                   scale: 1.02,
                   boxShadow: '0 15px 35px -5px rgba(59, 130, 246, 0.2)'
                 }}
-                className="group p-6 bg-white rounded-2xl border border-gray-200 hover:border-blue-400 transition-all shadow-sm hover:shadow-lg"
+                className="group p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 transition-all duration-300 shadow-sm hover:shadow-lg"
               >
                 <motion.div
                   initial={{ scale: 0, rotate: -90 }}
@@ -272,7 +272,7 @@ const ZCADPage = () => {
                     />
                   </svg>
                 </motion.div>
-                <p className="text-gray-700 leading-relaxed group-hover:text-gray-900 transition-colors">
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">
                   {feature}
                 </p>
               </motion.div>
@@ -282,14 +282,14 @@ const ZCADPage = () => {
       </section>
 
       {/* Specifications Section */}
-      <section className="py-20 px-6 bg-white">
+      <section className="py-20 px-6 bg-white dark:bg-gray-800 transition-colors duration-300">
         <div className="max-w-5xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl font-bold text-center text-gray-900 mb-12"
+            className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12 transition-colors duration-300"
           >
             Technical Specifications
           </motion.h2>
@@ -299,7 +299,7 @@ const ZCADPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-gradient-to-br from-white to-blue-50 rounded-3xl shadow-2xl overflow-hidden border border-gray-200"
+            className="bg-gradient-to-br from-white to-blue-50 dark:from-gray-700 dark:to-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-600 transition-colors duration-300"
           >
             {Object.entries(product.specs).map(([key, value], index) => (
               <motion.div
@@ -309,23 +309,23 @@ const ZCADPage = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
                 whileHover={{ backgroundColor: 'rgba(59, 130, 246, 0.08)', x: 5 }}
-                className={`grid md:grid-cols-2 gap-4 p-6 ${
+                className={`grid md:grid-cols-2 gap-4 p-6 transition-colors duration-300 ${
                   index !== Object.entries(product.specs).length - 1
-                    ? 'border-b border-gray-200'
+                    ? 'border-b border-gray-200 dark:border-gray-600'
                     : ''
                 }`}
               >
-                <div className="font-bold text-gray-900 flex items-center">
+                <div className="font-bold text-gray-900 dark:text-white flex items-center transition-colors duration-300">
                   <motion.span
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: index * 0.05 + 0.1 }}
-                    className="w-2 h-2 bg-blue-600 rounded-full mr-3"
+                    className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full mr-3"
                   />
                   {key}
                 </div>
-                <div className="text-gray-700 font-medium">{value}</div>
+                <div className="text-gray-700 dark:text-gray-300 font-medium transition-colors duration-300">{value}</div>
               </motion.div>
             ))}
           </motion.div>
@@ -470,7 +470,7 @@ const ZCADPage = () => {
               whileFocus={{ scale: 1.02 }}
               type="email"
               placeholder="Enter your email"
-              className="px-6 py-4 rounded-full w-full sm:w-96 text-gray-900 font-medium focus:outline-none focus:ring-4 focus:ring-white/50 transition-all"
+              className="px-6 py-4 rounded-full w-full sm:w-96 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 font-medium focus:outline-none focus:ring-4 focus:ring-white/50 dark:focus:ring-blue-500/50 transition-all duration-300 placeholder:text-gray-500 dark:placeholder:text-gray-400"
             />
             <motion.button
               whileHover={{
@@ -479,7 +479,7 @@ const ZCADPage = () => {
                 y: -2
               }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-white text-blue-600 rounded-full font-bold hover:bg-gray-100 transition-colors shadow-xl whitespace-nowrap"
+              className="px-8 py-4 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 rounded-full font-bold hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300 shadow-xl whitespace-nowrap"
             >
               Join Waitlist →
             </motion.button>

@@ -13,13 +13,13 @@ const FeatureCard = ({ icon, title, description, index }) => {
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
+      className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
     >
       <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4">
         {icon}
       </div>
-      <h3 className="text-xl font-bold mb-2 text-gray-900">{title}</h3>
-      <p className="text-gray-600 leading-relaxed">{description}</p>
+      <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white transition-colors duration-300">{title}</h3>
+      <p className="text-gray-600 dark:text-gray-300 leading-relaxed transition-colors duration-300">{description}</p>
     </motion.div>
   );
 };
@@ -34,10 +34,10 @@ const SpecItem = ({ label, value, index }) => {
       initial={{ opacity: 0, x: -20 }}
       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
-      className="flex justify-between py-4 border-b border-gray-200 last:border-0"
+      className="flex justify-between py-4 border-b border-gray-200 dark:border-gray-700 last:border-0 transition-colors duration-300"
     >
-      <span className="text-gray-600 font-medium">{label}</span>
-      <span className="text-gray-900 font-semibold">{value}</span>
+      <span className="text-gray-600 dark:text-gray-400 font-medium transition-colors duration-300">{label}</span>
+      <span className="text-gray-900 dark:text-white font-semibold transition-colors duration-300">{value}</span>
     </motion.div>
   );
 };
@@ -139,9 +139,9 @@ const Q1Product = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Hero Section */}
-      <section ref={heroRef} className="relative pt-32 pb-20 px-6 overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50 to-gray-50">
+      <section ref={heroRef} className="relative pt-32 pb-20 px-6 overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50 to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -153,16 +153,16 @@ const Q1Product = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isHeroInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.6 }}
-              className="inline-block mb-6 px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold"
+              className="inline-block mb-6 px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full text-sm font-semibold transition-colors duration-300"
             >
               Next-Generation 3D Printing
             </motion.div>
 
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 text-gray-900">
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 text-gray-900 dark:text-white transition-colors duration-300">
               SYNTRIQ <span className="text-gradient">Q1</span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed transition-colors duration-300">
               The ultimate professional 3D printer combining breakthrough speed, multi-color capabilities,
               and industrial-grade material support in one revolutionary system.
             </p>
@@ -179,7 +179,7 @@ const Q1Product = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-white text-blue-600 rounded-full font-semibold text-lg border-2 border-blue-600 hover:bg-blue-50 transition-all"
+                className="px-8 py-4 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 rounded-full font-semibold text-lg border-2 border-blue-600 dark:border-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700 transition-all duration-300"
               >
                 Download Specs
               </motion.button>
@@ -193,24 +193,24 @@ const Q1Product = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative max-w-5xl mx-auto"
           >
-            <div className="aspect-video bg-gradient-to-br from-gray-200 to-gray-300 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden">
+            <div className="aspect-video bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden transition-colors duration-300">
               <div className="text-center p-8">
-                <svg className="w-32 h-32 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-32 h-32 mx-auto mb-4 text-gray-400 dark:text-gray-500 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <p className="text-gray-500 text-lg">Product Image Coming Soon</p>
+                <p className="text-gray-500 dark:text-gray-400 text-lg transition-colors duration-300">Product Image Coming Soon</p>
               </div>
             </div>
           </motion.div>
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
-        <div className="absolute top-40 right-10 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 dark:bg-blue-900 rounded-full mix-blend-multiply filter blur-3xl opacity-20 dark:opacity-10 animate-blob transition-colors duration-300" />
+        <div className="absolute top-40 right-10 w-72 h-72 bg-purple-200 dark:bg-purple-900 rounded-full mix-blend-multiply filter blur-3xl opacity-20 dark:opacity-10 animate-blob animation-delay-2000 transition-colors duration-300" />
       </section>
 
       {/* Features Section */}
-      <section className="py-24 px-6 bg-white">
+      <section className="py-24 px-6 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -219,10 +219,10 @@ const Q1Product = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white transition-colors duration-300">
               Engineered for <span className="text-gradient">Excellence</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto transition-colors duration-300">
               The Q1 combines cutting-edge technologies to deliver unmatched performance and versatility.
             </p>
           </motion.div>
@@ -236,7 +236,7 @@ const Q1Product = () => {
       </section>
 
       {/* Technical Specifications */}
-      <section className="py-24 px-6 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-24 px-6 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -245,10 +245,10 @@ const Q1Product = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white transition-colors duration-300">
               Technical <span className="text-gradient">Specifications</span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-600 dark:text-gray-300 transition-colors duration-300">
               Detailed specifications of the SYNTRIQ Q1 3D printer.
             </p>
           </motion.div>
@@ -258,7 +258,7 @@ const Q1Product = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-white rounded-3xl shadow-xl p-8"
+            className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-8 transition-colors duration-300"
           >
             {specifications.map((spec, index) => (
               <SpecItem key={index} {...spec} index={index} />
@@ -287,7 +287,7 @@ const Q1Product = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-white text-blue-600 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all shadow-lg"
+                className="px-8 py-4 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 rounded-full font-semibold text-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 shadow-lg"
               >
                 Contact Sales
               </motion.button>
