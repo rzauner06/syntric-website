@@ -12,7 +12,7 @@ const AllProducts = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
       {/* Hero Section */}
       <motion.section
         ref={heroRef}
@@ -25,7 +25,7 @@ const AllProducts = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6 }}
-            className="text-5xl md:text-6xl font-bold text-gray-900 mb-6"
+            className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6"
           >
             Our <span className="text-gradient">Products</span>
           </motion.h1>
@@ -33,7 +33,7 @@ const AllProducts = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
           >
             Cutting-edge manufacturing equipment and professional software solutions for modern production environments
           </motion.p>
@@ -51,8 +51,8 @@ const AllProducts = () => {
               transition={{ duration: 0.6 }}
               className="mb-12"
             >
-              <h2 className="text-4xl font-bold text-gray-900 mb-3">{category.name}</h2>
-              <p className="text-lg text-gray-600">{category.description}</p>
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-3">{category.name}</h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300">{category.description}</p>
             </motion.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -70,7 +70,7 @@ const AllProducts = () => {
                         scale: 1.02,
                         boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.15)'
                       }}
-                      className="bg-white p-8 rounded-2xl border border-gray-200 hover:border-blue-300 transition-all cursor-pointer shadow-sm hover:shadow-xl group"
+                      className="bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all cursor-pointer shadow-sm hover:shadow-xl group"
                     >
                       {/* Icon */}
                       <motion.div
@@ -83,7 +83,7 @@ const AllProducts = () => {
 
                       {/* Title & Badge */}
                       <div className="flex items-start justify-between mb-3">
-                        <h3 className="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                           {product.name}
                         </h3>
                         {product.status === 'coming-soon' && (
@@ -100,12 +100,12 @@ const AllProducts = () => {
                       </div>
 
                       {/* Tagline */}
-                      <p className="text-gray-600 mb-4 line-clamp-2">{product.tagline}</p>
+                      <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">{product.tagline}</p>
 
                       {/* Features Preview */}
                       <ul className="space-y-2 mb-6">
                         {product.features.slice(0, 3).map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-start gap-2 text-sm text-gray-700">
+                          <li key={featureIndex} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
                             <svg
                               className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5"
                               fill="none"
@@ -125,7 +125,7 @@ const AllProducts = () => {
                       </ul>
 
                       {/* Learn More Link */}
-                      <div className="flex items-center text-blue-600 font-semibold group-hover:gap-2 transition-all">
+                      <div className="flex items-center text-blue-600 dark:text-blue-400 font-semibold group-hover:gap-2 transition-all">
                         Learn more
                         <motion.svg
                           initial={{ x: 0 }}
