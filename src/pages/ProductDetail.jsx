@@ -264,6 +264,7 @@ const ProductDetail = () => {
         </div>
       </section>
 
+      {/* Footer */}
       <Footer />
     </div>
   );

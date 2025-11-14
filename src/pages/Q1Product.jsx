@@ -246,6 +246,7 @@ const Q1Product = () => {
         </div>
       </section>
 
+      {/* Footer */}
       <Footer />
     </div>
   );

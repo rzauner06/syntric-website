@@ -128,6 +128,7 @@ const AllProducts = () => {
         </div>
       </section>
 
+      {/* Footer */}
       <Footer />
     </div>
   );
