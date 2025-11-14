@@ -337,7 +337,7 @@ const ProductDetail = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-xl text-blue-100 mb-8"
           >
-            Contact our team to learn more about {product.name} and how it can transform your
+            Learn more about {product.name} and how it can transform your
             workflow.
           </motion.p>
           <motion.div
@@ -346,13 +346,13 @@ const ProductDetail = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Link to="/contact">
+            <Link to="/about">
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.3)' }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-white dark:bg-gray-200 text-blue-600 dark:text-blue-700 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 dark:hover:bg-gray-300 transition-colors duration-300 shadow-lg"
               >
-                Contact Sales
+                Learn About SYNTRIC
               </motion.button>
             </Link>
           </motion.div>

@@ -1,3 +1,14 @@
+import PrintIcon from '@mui/icons-material/Print';
+import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
+import BoltIcon from '@mui/icons-material/Bolt';
+import PsychologyIcon from '@mui/icons-material/Psychology';
+import CloudIcon from '@mui/icons-material/Cloud';
+import PaletteIcon from '@mui/icons-material/Palette';
+import ExtensionIcon from '@mui/icons-material/Extension';
+import ContentCutIcon from '@mui/icons-material/ContentCut';
+import DesignServicesIcon from '@mui/icons-material/DesignServices';
+
 export const products = [
   {
     id: '3d-printers',
@@ -6,7 +17,7 @@ export const products = [
     category: 'Hardware',
     tagline: 'Industry-leading additive manufacturing solutions',
     description: 'High-precision 3D printing systems designed for professional manufacturing and rapid prototyping. Our printers deliver exceptional quality and reliability for complex geometries.',
-    icon: '🖨️',
+    icon: <PrintIcon sx={{ fontSize: 'inherit' }} />,
     features: [
       'Multi-material support with advanced extruder systems',
       'Precision control with 10-micron layer resolution',
@@ -31,7 +42,7 @@ export const products = [
     category: 'Hardware',
     tagline: 'Professional-grade computer numerical control systems',
     description: 'Precision CNC milling and routing machines for subtractive manufacturing. Built for accuracy, repeatability, and production-grade performance.',
-    icon: '⚙️',
+    icon: <PrecisionManufacturingIcon sx={{ fontSize: 'inherit' }} />,
     features: [
       'High-speed spindle up to 24,000 RPM',
       '5-axis simultaneous machining capability',
@@ -56,7 +67,7 @@ export const products = [
     category: 'Hardware',
     tagline: 'Automated assembly systems for efficient PCB manufacturing',
     description: 'High-speed pick and place machines for PCB assembly and electronic manufacturing. Designed for accuracy, speed, and flexibility in production environments.',
-    icon: '🤖',
+    icon: <SmartToyIcon sx={{ fontSize: 'inherit' }} />,
     features: [
       'High-speed placement up to 25,000 CPH',
       'Vision-based component recognition',
@@ -81,7 +92,7 @@ export const products = [
     category: 'Software',
     tagline: 'Next-generation Electronic Design Automation',
     description: 'Revolutionary EDA software combining schematic capture, PCB layout, and simulation in a modern, intuitive interface. ZCAD reimagines electronic design with AI-assisted routing and real-time collaboration.',
-    icon: '⚡',
+    icon: <BoltIcon sx={{ fontSize: 'inherit' }} />,
     features: [
       'Unified schematic and PCB layout environment',
       'AI-assisted auto-routing and optimization',
@@ -109,22 +120,22 @@ export const products = [
       {
         title: 'AI-Powered Design',
         description: 'Machine learning algorithms optimize trace routing, component placement, and signal integrity automatically.',
-        icon: '🧠'
+        icon: <PsychologyIcon sx={{ fontSize: 'inherit' }} />
       },
       {
         title: 'Cloud-Native',
         description: 'Work from anywhere with cloud sync, real-time collaboration, and automatic backups.',
-        icon: '☁️'
+        icon: <CloudIcon sx={{ fontSize: 'inherit' }} />
       },
       {
         title: 'Modern Interface',
         description: 'Beautiful, intuitive UI designed for productivity. Customizable workspaces and keyboard shortcuts.',
-        icon: '🎨'
+        icon: <PaletteIcon sx={{ fontSize: 'inherit' }} />
       },
       {
         title: 'Open Ecosystem',
         description: 'Import/export from all major EDA tools. Python API for automation and custom plugins.',
-        icon: '🔌'
+        icon: <ExtensionIcon sx={{ fontSize: 'inherit' }} />
       }
     ],
     pricing: {
@@ -152,7 +163,7 @@ export const products = [
     category: 'Software',
     tagline: 'Advanced 3D printing slicer with intelligent optimization',
     description: 'Professional slicing software for 3D printing that combines speed, precision, and ease of use. Featuring AI-powered support generation and advanced print optimization.',
-    icon: '🔪',
+    icon: <ContentCutIcon sx={{ fontSize: 'inherit' }} />,
     features: [
       'AI-powered automatic support generation',
       'Advanced infill patterns and optimization',
@@ -181,7 +192,7 @@ export const products = [
     category: 'Software',
     tagline: 'Modern parametric CAD for mechanical design',
     description: 'Professional-grade CAD software with parametric modeling, assembly design, and technical drawing capabilities. Built for engineers, designers, and makers.',
-    icon: '📐',
+    icon: <DesignServicesIcon sx={{ fontSize: 'inherit' }} />,
     features: [
       'Parametric 3D modeling with history tree',
       'Assembly design and motion simulation',

@@ -2,6 +2,7 @@ import { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useRef, useEffect } from 'react';
 import { getProductBySlug } from '../data/products';
+import CelebrationIcon from '@mui/icons-material/Celebration';
 
 const ZCADPage = () => {
   const product = getProductBySlug('zcad');
@@ -63,8 +64,7 @@ const ZCADPage = () => {
               transition={{ duration: 0.8, type: 'spring', stiffness: 150 }}
               whileHover={{
                 scale: 1.1,
-                rotate: [0, -5, 5, -5, 0],
-                transition: { duration: 0.5 }
+                transition: { duration: 0.3 }
               }}
               className="text-9xl mb-8 inline-block cursor-pointer"
             >
@@ -198,8 +198,8 @@ const ZCADPage = () => {
                   animate={isHighlightsInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
                   transition={{ duration: 0.6, delay: index * 0.15 + 0.2, type: 'spring', stiffness: 200 }}
                   whileHover={{
-                    rotate: [0, -10, 10, 0],
-                    transition: { duration: 0.5 }
+                    scale: 1.1,
+                    transition: { duration: 0.3 }
                   }}
                   className="text-5xl mb-4 inline-block"
                 >
@@ -489,9 +489,9 @@ const ZCADPage = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-sm text-blue-200 mt-6"
+            className="text-sm text-blue-200 mt-6 flex items-center justify-center gap-2"
           >
-            🎉 Over 10,000 engineers already on the waitlist
+            <CelebrationIcon fontSize="small" /> Over 10,000 engineers already on the waitlist
           </motion.p>
         </div>
       </section>

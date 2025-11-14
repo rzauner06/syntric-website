@@ -74,8 +74,8 @@ const AllProducts = () => {
                     >
                       {/* Icon */}
                       <motion.div
-                        whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
-                        transition={{ duration: 0.5 }}
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.3 }}
                         className="text-6xl mb-4"
                       >
                         {product.icon}
@@ -178,13 +178,13 @@ const AllProducts = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Link to="/contact">
+            <Link to="/about">
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.3)' }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg"
               >
-                Talk to an Expert
+                Learn More About Us
               </motion.button>
             </Link>
           </motion.div>

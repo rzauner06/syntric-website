@@ -99,8 +99,8 @@ const MegaMenu = ({ isOpen, onClose }) => {
                                 <div className="flex items-start gap-4">
                                   {/* Icon */}
                                   <motion.div
-                                    whileHover={{ rotate: [0, -10, 10, 0] }}
-                                    transition={{ duration: 0.5 }}
+                                    whileHover={{ scale: 1.1 }}
+                                    transition={{ duration: 0.3 }}
                                     className="text-3xl flex-shrink-0"
                                   >
                                     {product.icon}
@@ -168,7 +168,7 @@ const MegaMenu = ({ isOpen, onClose }) => {
                       </Link>
                     </div>
                     <div className="text-sm text-gray-600 dark:text-gray-400">
-                      Need help choosing? <Link to="/contact" onClick={onClose} className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium">Contact us</Link>
+                      Explore our full product lineup
                     </div>
                   </div>
                 </motion.div>

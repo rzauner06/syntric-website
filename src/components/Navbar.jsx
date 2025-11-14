@@ -91,21 +91,21 @@ const Navbar = () => {
                 </motion.div>
               </Link>
 
+              <Link to="/shop">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                >
+                  Shop
+                </motion.div>
+              </Link>
+
               <Link to="/about">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
                 >
                   About
-                </motion.div>
-              </Link>
-
-              <Link to="/contact">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
-                >
-                  Contact
                 </motion.div>
               </Link>
 

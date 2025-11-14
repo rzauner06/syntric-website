@@ -208,18 +208,18 @@ const MobileMenu = ({ isOpen, onClose }) => {
                   Features
                 </Link>
                 <Link
+                  to="/shop"
+                  onClick={onClose}
+                  className="block text-lg font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                >
+                  Shop
+                </Link>
+                <Link
                   to="/about"
                   onClick={onClose}
                   className="block text-lg font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   About
-                </Link>
-                <Link
-                  to="/contact"
-                  onClick={onClose}
-                  className="block text-lg font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                >
-                  Contact
                 </Link>
               </motion.div>
 
