@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useRef, useEffect } from 'react';
 import { getProductBySlug } from '../data/products';
 import CelebrationIcon from '@mui/icons-material/Celebration';
+import Footer from '../components/Footer';
 
 const ZCADPage = () => {
   const product = getProductBySlug('zcad');
@@ -495,6 +496,9 @@ const ZCADPage = () => {
           </motion.p>
         </div>
       </section>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

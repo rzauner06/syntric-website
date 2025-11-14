@@ -1,57 +1,35 @@
 import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { getFeaturedProducts, getUpcomingProducts } from '../data/products';
 
-const ProductCard = ({ product, index }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
+const ProductCard = ({ product }) => {
   return (
     <Link to={`/products/${product.slug}`}>
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, y: 50 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 0.6, delay: index * 0.2 }}
-        className="group relative bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl hover:shadow-blue-500/50 hover:shadow-2xl transition-all duration-500 cursor-pointer"
-      >
+      <div className="group relative bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl hover:shadow-blue-500/50 hover:shadow-2xl transition-all duration-500 cursor-pointer">
         <div className="relative z-10">
-          {/* Icon with enhanced animation */}
-          <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            animate={isInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
-            transition={{ duration: 0.6, delay: index * 0.2 + 0.2, type: 'spring', stiffness: 200 }}
-            className="text-6xl mb-6 inline-block"
-          >
+          {/* Icon */}
+          <div className="text-6xl mb-6 inline-block">
             {product.icon}
-          </motion.div>
+          </div>
 
           <h3 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{product.name}</h3>
           <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg leading-relaxed">{product.tagline}</p>
 
           <ul className="space-y-3 mb-8">
             {product.features.slice(0, 5).map((feature, i) => (
-              <motion.li
+              <li
                 key={i}
-                initial={{ opacity: 0, x: -20 }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                transition={{ duration: 0.5, delay: index * 0.2 + i * 0.1 }}
                 className="flex items-center text-gray-700 dark:text-gray-300"
               >
-                <motion.svg
-                  initial={{ scale: 0 }}
-                  animate={isInView ? { scale: 1 } : { scale: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.2 + i * 0.1 + 0.1 }}
+                <svg
                   className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </motion.svg>
+                </svg>
                 {feature}
-              </motion.li>
+              </li>
             ))}
           </ul>
 
@@ -76,7 +54,7 @@ const ProductCard = ({ product, index }) => {
 
         {/* Hover effect background */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 dark:from-blue-900/20 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      </motion.div>
+      </div>
     </Link>
   );
 };
@@ -106,8 +84,8 @@ const Products = () => {
 
         {/* Featured Products */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {featuredProducts.map((product, index) => (
-            <ProductCard key={product.id} product={product} index={index} />
+          {featuredProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
 
@@ -142,8 +120,8 @@ const Products = () => {
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {upcomingProducts.map((product, index) => (
-                <ProductCard key={product.id} product={product} index={index} />
+              {upcomingProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
               ))}
             </div>
           </>

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const FeatureCard = ({ icon, title, description, index }) => {
   const ref = useRef(null);
@@ -305,6 +306,9 @@ const Q1Product = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

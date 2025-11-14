@@ -2,6 +2,7 @@ import { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useRef, useEffect } from 'react';
 import { products, productCategories } from '../data/products';
+import Footer from '../components/Footer';
 
 const AllProducts = () => {
   const heroRef = useRef(null);
@@ -183,6 +184,9 @@ const AllProducts = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

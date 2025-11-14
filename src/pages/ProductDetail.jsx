@@ -2,6 +2,7 @@ import { motion, useInView } from 'framer-motion';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useRef, useEffect } from 'react';
 import { getProductBySlug, products } from '../data/products';
+import Footer from '../components/Footer';
 
 const ProductDetail = () => {
   const { slug } = useParams();
@@ -358,6 +359,9 @@ const ProductDetail = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
