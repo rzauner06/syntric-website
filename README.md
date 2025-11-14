@@ -35,6 +35,23 @@ npm run build
 npm run preview
 ```
 
+## 🚀 Deployment
+
+This project is configured with **Nixpacks** for easy deployment to platforms like Railway, Render, and Fly.io.
+
+For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md).
+
+**Quick Deploy Options:**
+- Railway: Connect GitHub repo and auto-deploy
+- Vercel/Netlify: Push to git and deploy
+- Static hosting: Build and upload `dist` folder
+
+```bash
+# Local production test
+npm run build
+npx serve dist -s
+```
+
 ## 🎨 Design Philosophy
 
 The SYNTRIQ landing page embodies the following design principles:

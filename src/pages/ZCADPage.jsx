@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { getProductBySlug } from '../data/products';
 import Footer from '../components/Footer';
 import CelebrationIcon from '@mui/icons-material/Celebration';
-import Footer from '../components/Footer';
 
 const ZCADPage = () => {
   const product = getProductBySlug('zcad');

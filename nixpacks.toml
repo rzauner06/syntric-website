@@ -1,0 +1,17 @@
+# Nixpacks Configuration for SYNTRIQ Website
+# This file configures how Nixpacks builds and deploys the React SPA
+
+[phases.setup]
+nixPkgs = ["nodejs_20"]
+
+[phases.install]
+cmds = ["npm ci"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "npx serve dist -s -l 3000"
+
+[variables]
+NODE_ENV = "production"
