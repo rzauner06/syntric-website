@@ -15,8 +15,7 @@ const ProductCard = ({ product, index }) => {
         initial={{ opacity: 0, y: 50 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
         transition={{ duration: 0.6, delay: index * 0.2 }}
-        whileHover={{ y: -10, scale: 1.02 }}
-        className="group relative bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer"
+        className="group relative bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl hover:shadow-blue-500/50 hover:shadow-2xl transition-all duration-500 cursor-pointer"
       >
         <div className="relative z-10">
           {/* Icon with enhanced animation */}
@@ -24,10 +23,6 @@ const ProductCard = ({ product, index }) => {
             initial={{ scale: 0, rotate: -180 }}
             animate={isInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
             transition={{ duration: 0.6, delay: index * 0.2 + 0.2, type: 'spring', stiffness: 200 }}
-            whileHover={{
-              scale: 1.1,
-              transition: { duration: 0.3 }
-            }}
             className="text-6xl mb-6 inline-block"
           >
             {product.icon}
