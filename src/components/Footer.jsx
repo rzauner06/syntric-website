@@ -1,13 +1,37 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
-    Products: ['3D Printers', 'CNC Machines', 'Pick & Place', 'Accessories', 'Software'],
-    Company: ['About Us', 'Careers', 'Press', 'Partners', 'Blog'],
-    Support: ['Documentation', 'Help Center', 'Contact', 'Warranty', 'Downloads'],
-    Legal: ['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'Compliance']
+    Products: [
+      { name: '3D Printers', path: '/products' },
+      { name: 'CNC Machines', path: '/products' },
+      { name: 'Pick & Place', path: '/products' },
+      { name: 'Accessories', path: '/products' },
+      { name: 'Software', path: '/products' }
+    ],
+    Company: [
+      { name: 'About Us', path: '/about' },
+      { name: 'Careers', path: '/careers' },
+      { name: 'Press', path: '/press' },
+      { name: 'Partners', path: '/partners' },
+      { name: 'Blog', path: '/blog' }
+    ],
+    Support: [
+      { name: 'Documentation', path: '/documentation' },
+      { name: 'Help Center', path: '/help' },
+      { name: 'Contact', path: '/contact' },
+      { name: 'Warranty', path: '/warranty' },
+      { name: 'Downloads', path: '/downloads' }
+    ],
+    Legal: [
+      { name: 'Privacy Policy', path: '/privacy' },
+      { name: 'Terms of Service', path: '/terms' },
+      { name: 'Cookie Policy', path: '/cookies' },
+      { name: 'Compliance', path: '/compliance' }
+    ]
   };
 
   return (
@@ -60,13 +84,13 @@ const Footer = () => {
               <h4 className="font-semibold text-white mb-4">{category}</h4>
               <ul className="space-y-3">
                 {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
+                  <li key={link.name}>
+                    <Link
+                      to={link.path}
                       className="text-gray-400 hover:text-white transition-colors hover:pl-1 inline-block"
                     >
-                      {link}
-                    </a>
+                      {link.name}
+                    </Link>
                   </li>
                 ))}
               </ul>

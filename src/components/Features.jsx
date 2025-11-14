@@ -15,7 +15,6 @@ const FeatureItem = ({ icon, title, description, index }) => {
       className="text-center"
     >
       <motion.div
-        whileHover={{ scale: 1.1, rotate: 5 }}
         className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl"
       >
         {icon}

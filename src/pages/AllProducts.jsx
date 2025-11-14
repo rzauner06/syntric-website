@@ -65,17 +65,10 @@ const AllProducts = () => {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
-                      whileHover={{
-                        y: -10,
-                        scale: 1.02,
-                        boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.15)'
-                      }}
-                      className="bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all cursor-pointer shadow-sm hover:shadow-xl group"
+                      className="bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all cursor-pointer shadow-sm hover:shadow-blue-500/50 hover:shadow-xl group"
                     >
                       {/* Icon */}
                       <motion.div
-                        whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
-                        transition={{ duration: 0.5 }}
                         className="text-6xl mb-4"
                       >
                         {product.icon}
