@@ -1,5 +1,5 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { products } from '../data/products';
 import Footer from '../components/Footer';
@@ -7,11 +7,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 const ShopPage = () => {
-  const heroRef = useRef(null);
-  const productsRef = useRef(null);
-  const isHeroInView = useInView(heroRef, { once: true });
-  const isProductsInView = useInView(productsRef, { once: true, margin: '-100px' });
-
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   useEffect(() => {
@@ -27,19 +22,9 @@ const ShopPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
       {/* Hero Section */}
-      <motion.section
-        ref={heroRef}
-        initial={{ opacity: 0 }}
-        animate={isHeroInView ? { opacity: 1 } : { opacity: 0 }}
-        className="pt-32 pb-20 px-6"
-      >
+      <section className="pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
+          <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-6">
               <ShoppingCartIcon
                 sx={{ fontSize: 60 }}
@@ -52,15 +37,10 @@ const ShopPage = () => {
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
               Professional manufacturing equipment and software solutions for modern production
             </p>
-          </motion.div>
+          </div>
 
           {/* Category Filter */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex items-center justify-center gap-4 mb-12 flex-wrap"
-          >
+          <div className="flex items-center justify-center gap-4 mb-12 flex-wrap">
             <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
               <FilterListIcon />
               <span className="font-semibold">Filter:</span>
@@ -80,20 +60,17 @@ const ShopPage = () => {
                 {category}
               </motion.button>
             ))}
-          </motion.div>
+          </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Products Grid */}
-      <section ref={productsRef} className="pb-20 px-6">
+      <section className="pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((product, index) => (
+            {filteredProducts.map((product) => (
               <Link key={product.id} to={`/products/${product.slug}`}>
                 <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isProductsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   whileHover={{
                     y: -10,
                     scale: 1.02,
@@ -173,15 +150,11 @@ const ShopPage = () => {
 
           {/* Empty State */}
           {filteredProducts.length === 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center py-20"
-            >
+            <div className="text-center py-20">
               <p className="text-2xl text-gray-600 dark:text-gray-400">
                 No products found in this category
               </p>
-            </motion.div>
+            </div>
           )}
         </div>
       </section>
@@ -189,30 +162,13 @@ const ShopPage = () => {
       {/* Info Banner */}
       <section className="py-16 px-6 bg-gradient-to-r from-blue-600 to-purple-600">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl md:text-4xl font-bold text-white mb-4"
-          >
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Need Help Choosing?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-lg text-blue-100 mb-8"
-          >
+          </h2>
+          <p className="text-lg text-blue-100 mb-8">
             Not sure which product is right for your needs? Learn more about our company and mission.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          </p>
+          <div>
             <Link to="/about">
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.3)' }}
@@ -222,7 +178,7 @@ const ShopPage = () => {
                 About SYNTRIC
               </motion.button>
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
 

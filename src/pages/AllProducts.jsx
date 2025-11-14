@@ -1,12 +1,10 @@
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import { products, productCategories } from '../data/products';
+import Footer from '../components/Footer';
 
 const AllProducts = () => {
-  const heroRef = useRef(null);
-  const isHeroInView = useInView(heroRef, { once: true });
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -14,65 +12,36 @@ const AllProducts = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
       {/* Hero Section */}
-      <motion.section
-        ref={heroRef}
-        initial={{ opacity: 0 }}
-        animate={isHeroInView ? { opacity: 1 } : { opacity: 0 }}
-        className="pt-32 pb-20 px-6"
-      >
+      <section className="pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6 }}
-            className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6"
-          >
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
             Our <span className="text-gradient">Products</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
-          >
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Cutting-edge manufacturing equipment and professional software solutions for modern production environments
-          </motion.p>
+          </p>
         </div>
-      </motion.section>
+      </section>
 
       {/* Products by Category */}
-      {productCategories.map((category, categoryIndex) => (
+      {productCategories.map((category) => (
         <section key={category.name} className="py-12 px-6">
           <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="mb-12"
-            >
+            <div className="mb-12">
               <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-3">{category.name}</h2>
               <p className="text-lg text-gray-600 dark:text-gray-300">{category.description}</p>
-            </motion.div>
+            </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {products
                 .filter((p) => p.category === category.name)
-                .map((product, index) => (
+                .map((product) => (
                   <Link key={product.id} to={`/products/${product.slug}`}>
-                    <motion.div
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className="bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all cursor-pointer shadow-sm hover:shadow-blue-500/50 hover:shadow-xl group"
-                    >
+                    <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all cursor-pointer shadow-sm hover:shadow-blue-500/50 hover:shadow-xl group">
                       {/* Icon */}
-                      <motion.div
-                        className="text-6xl mb-4"
-                      >
+                      <div className="text-6xl mb-4">
                         {product.icon}
-                      </motion.div>
+                      </div>
 
                       {/* Title & Badge */}
                       <div className="flex items-start justify-between mb-3">
@@ -80,15 +49,9 @@ const AllProducts = () => {
                           {product.name}
                         </h3>
                         {product.status === 'coming-soon' && (
-                          <motion.span
-                            initial={{ scale: 0 }}
-                            whileInView={{ scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
-                            className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 ml-2"
-                          >
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 ml-2">
                             Soon
-                          </motion.span>
+                          </span>
                         )}
                       </div>
 
@@ -120,9 +83,7 @@ const AllProducts = () => {
                       {/* Learn More Link */}
                       <div className="flex items-center text-blue-600 dark:text-blue-400 font-semibold group-hover:gap-2 transition-all">
                         Learn more
-                        <motion.svg
-                          initial={{ x: 0 }}
-                          whileHover={{ x: 5 }}
+                        <svg
                           className="w-5 h-5 ml-1"
                           fill="none"
                           stroke="currentColor"
@@ -134,9 +95,9 @@ const AllProducts = () => {
                             strokeWidth={2}
                             d="M9 5l7 7-7 7"
                           />
-                        </motion.svg>
+                        </svg>
                       </div>
-                    </motion.div>
+                    </div>
                   </Link>
                 ))}
             </div>
@@ -147,30 +108,13 @@ const AllProducts = () => {
       {/* CTA Section */}
       <section className="py-20 px-6 bg-gradient-to-r from-blue-600 to-blue-700">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl font-bold text-white mb-6"
-          >
+          <h2 className="text-4xl font-bold text-white mb-6">
             Can't decide which product is right for you?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-xl text-blue-100 mb-8"
-          >
+          </h2>
+          <p className="text-xl text-blue-100 mb-8">
             Our experts are here to help you find the perfect solution for your needs.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          </p>
+          <div>
             <Link to="/about">
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.3)' }}
@@ -180,9 +124,11 @@ const AllProducts = () => {
                 Learn More About Us
               </motion.button>
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 };

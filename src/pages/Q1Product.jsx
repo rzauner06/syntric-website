@@ -1,51 +1,29 @@
 import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
-const FeatureCard = ({ icon, title, description, index }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
+const FeatureCard = ({ icon, title, description }) => {
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
-    >
+    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
       <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4">
         {icon}
       </div>
       <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white transition-colors duration-300">{title}</h3>
       <p className="text-gray-600 dark:text-gray-300 leading-relaxed transition-colors duration-300">{description}</p>
-    </motion.div>
+    </div>
   );
 };
 
-const SpecItem = ({ label, value, index }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
+const SpecItem = ({ label, value }) => {
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: -20 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-      transition={{ duration: 0.5, delay: index * 0.05 }}
-      className="flex justify-between py-4 border-b border-gray-200 dark:border-gray-700 last:border-0 transition-colors duration-300"
-    >
+    <div className="flex justify-between py-4 border-b border-gray-200 dark:border-gray-700 last:border-0 transition-colors duration-300">
       <span className="text-gray-600 dark:text-gray-400 font-medium transition-colors duration-300">{label}</span>
       <span className="text-gray-900 dark:text-white font-semibold transition-colors duration-300">{value}</span>
-    </motion.div>
+    </div>
   );
 };
 
 const Q1Product = () => {
-  const heroRef = useRef(null);
-  const isHeroInView = useInView(heroRef, { once: true });
-
   const features = [
     {
       icon: (
@@ -141,22 +119,12 @@ const Q1Product = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Hero Section */}
-      <section ref={heroRef} className="relative pt-32 pb-20 px-6 overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50 to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
+      <section className="relative pt-32 pb-20 px-6 overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50 to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isHeroInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.6 }}
-              className="inline-block mb-6 px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full text-sm font-semibold transition-colors duration-300"
-            >
+          <div className="text-center mb-12">
+            <div className="inline-block mb-6 px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full text-sm font-semibold transition-colors duration-300">
               Next-Generation 3D Printing
-            </motion.div>
+            </div>
 
             <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 text-gray-900 dark:text-white transition-colors duration-300">
               SYNTRIQ <span className="text-gradient">Q1</span>
@@ -184,15 +152,10 @@ const Q1Product = () => {
                 Download Specs
               </motion.button>
             </div>
-          </motion.div>
+          </div>
 
           {/* Placeholder for product image */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative max-w-5xl mx-auto"
-          >
+          <div className="relative max-w-5xl mx-auto">
             <div className="aspect-video bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden transition-colors duration-300">
               <div className="text-center p-8">
                 <svg className="w-32 h-32 mx-auto mb-4 text-gray-400 dark:text-gray-500 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -201,7 +164,7 @@ const Q1Product = () => {
                 <p className="text-gray-500 dark:text-gray-400 text-lg transition-colors duration-300">Product Image Coming Soon</p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Decorative elements */}
@@ -212,24 +175,18 @@ const Q1Product = () => {
       {/* Features Section */}
       <section className="py-24 px-6 bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
+          <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white transition-colors duration-300">
               Engineered for <span className="text-gradient">Excellence</span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto transition-colors duration-300">
               The Q1 combines cutting-edge technologies to deliver unmatched performance and versatility.
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => (
-              <FeatureCard key={index} {...feature} index={index} />
+              <FeatureCard key={index} {...feature} />
             ))}
           </div>
         </div>
@@ -238,44 +195,27 @@ const Q1Product = () => {
       {/* Technical Specifications */}
       <section className="py-24 px-6 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
         <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
+          <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white transition-colors duration-300">
               Technical <span className="text-gradient">Specifications</span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 transition-colors duration-300">
               Detailed specifications of the SYNTRIQ Q1 3D printer.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-8 transition-colors duration-300"
-          >
+          <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-8 transition-colors duration-300">
             {specifications.map((spec, index) => (
-              <SpecItem key={index} {...spec} index={index} />
+              <SpecItem key={index} {...spec} />
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-24 px-6 bg-gradient-to-br from-blue-600 to-blue-500">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
               Ready to Transform Your Production?
             </h2>
@@ -302,9 +242,11 @@ const Q1Product = () => {
                 </motion.button>
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 };
