@@ -35,7 +35,7 @@ const ShopPage = () => {
               <span className="text-gradient">Shop</span> SYNTRIC
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
-              Professional manufacturing equipment and software solutions for modern production
+              Transform your manufacturing capabilities with innovative solutions engineered for excellence
             </p>
           </div>
 
@@ -109,9 +109,16 @@ const ShopPage = () => {
                   </h3>
 
                   {/* Tagline */}
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 line-clamp-2 flex-grow">
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2 flex-grow">
                     {product.tagline}
                   </p>
+
+                  {/* Price */}
+                  <div className="mb-4">
+                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                      {product.priceLabel || `$${product.basePrice?.toLocaleString()}`}
+                    </p>
+                  </div>
 
                   {/* Features Preview */}
                   <ul className="space-y-2 mb-6">
@@ -139,9 +146,15 @@ const ShopPage = () => {
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-600 transition-all shadow-lg text-center"
+                    className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white py-3 rounded-full font-semibold hover:from-blue-700 hover:to-blue-600 transition-all shadow-lg text-center flex items-center justify-center gap-2"
                   >
-                    {product.status === 'available' ? 'View Details' : 'Learn More'}
+                    {product.status === 'available' ? (
+                      <>
+                        <ShoppingCartIcon /> View & Configure
+                      </>
+                    ) : (
+                      'Coming Soon'
+                    )}
                   </motion.div>
                 </motion.div>
               </Link>
@@ -163,10 +176,10 @@ const ShopPage = () => {
       <section className="py-16 px-6 bg-gradient-to-r from-blue-600 to-purple-600">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Need Help Choosing?
+            Revolutionize Your Manufacturing
           </h2>
           <p className="text-lg text-blue-100 mb-8">
-            Not sure which product is right for your needs? Learn more about our company and mission.
+            Partner with us to unlock new possibilities. Our expert team is committed to delivering solutions that drive innovation and excellence in your operations.
           </p>
           <div>
             <Link to="/about">
@@ -175,7 +188,7 @@ const ShopPage = () => {
                 whileTap={{ scale: 0.95 }}
                 className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg"
               >
-                About SYNTRIC
+                Discover Our Vision
               </motion.button>
             </Link>
           </div>

@@ -18,7 +18,7 @@ const AllProducts = () => {
             Our <span className="text-gradient">Products</span>
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Cutting-edge manufacturing equipment and professional software solutions for modern production environments
+            Innovative manufacturing equipment and intelligent software engineered to transform your production capabilities and inspire excellence
           </p>
         </div>
       </section>
@@ -109,19 +109,28 @@ const AllProducts = () => {
       <section className="py-20 px-6 bg-gradient-to-r from-blue-600 to-blue-700">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
-            Can't decide which product is right for you?
+            Ready to Transform Your Manufacturing?
           </h2>
           <p className="text-xl text-blue-100 mb-8">
-            Our experts are here to help you find the perfect solution for your needs.
+            Our committed team of experts is here to guide you toward the perfect solution. Let's build the future of manufacturing together.
           </p>
-          <div>
-            <Link to="/about">
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link to="/shop">
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.3)' }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg"
               >
-                Learn More About Us
+                Explore Shop
+              </motion.button>
+            </Link>
+            <Link to="/about">
+              <motion.button
+                whileHover={{ scale: 1.05, boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.3)' }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-transparent text-white border-2 border-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all shadow-lg"
+              >
+                Our Vision
               </motion.button>
             </Link>
           </div>

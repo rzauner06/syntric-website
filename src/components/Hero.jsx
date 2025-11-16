@@ -55,8 +55,8 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
         >
-          Precision engineering meets cutting-edge technology.
-          Experience the future of manufacturing with SYNTRIQ's advanced 3D printers, CNC machines, and Pick & Place systems.
+          Where precision engineering converges with breakthrough innovation.
+          Discover SYNTRIQ's commitment to excellence through advanced 3D printers, CNC machines, and intelligent Pick & Place systems designed to transform your manufacturing capabilities.
         </motion.p>
 
         <motion.div

@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Cart from './components/Cart';
 import Home from './pages/Home';
 import AllProducts from './pages/AllProducts';
 import ProductDetail from './pages/ProductDetail';
@@ -7,17 +8,21 @@ import ZCADPage from './pages/ZCADPage';
 import Q1Product from './pages/Q1Product';
 import AboutPage from './pages/AboutPage';
 import ShopPage from './pages/ShopPage';
+import CheckoutPage from './pages/CheckoutPage';
 import Features from './components/Features';
 import Footer from './components/Footer';
 import GenericPage from './pages/GenericPage';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { CartProvider } from './contexts/CartContext';
 
 function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-        <Navbar />
+      <CartProvider>
+        <Router>
+          <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+          <Navbar />
+          <Cart />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<AllProducts />} />
@@ -27,6 +32,7 @@ function App() {
           <Route path="/features" element={<div className="pt-20"><Features /><Footer /></div>} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/shop" element={<ShopPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/contact" element={<GenericPage title="Contact Us" description="Get in touch with our team. We're here to help with your questions and inquiries." />} />
 
           {/* Company Pages */}
@@ -49,6 +55,7 @@ function App() {
         </Routes>
         </div>
       </Router>
+      </CartProvider>
     </ThemeProvider>
   );
 }
