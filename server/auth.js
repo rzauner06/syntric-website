@@ -1,11 +1,20 @@
 import { betterAuth } from "better-auth";
-import Database from "better-sqlite3";
+import pg from "pg";
 import dotenv from "dotenv";
 
 dotenv.config();
 
+const { Pool } = pg;
+
+// Create PostgreSQL connection pool
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: false, // Server does not support SSL
+  connectionTimeoutMillis: 10000, // 10 second timeout
+});
+
 export const auth = betterAuth({
-  database: new Database(process.env.DATABASE_URL || "./server/auth.db"),
+  database: pool,
 
   emailAndPassword: {
     enabled: true,

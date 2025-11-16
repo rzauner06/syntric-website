@@ -15,8 +15,8 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Mount Better Auth handler at /api/auth/*
-app.all("/api/auth/*", async (req, res) => {
+// Mount Better Auth handler at /api/auth
+app.use("/api/auth", async (req, res) => {
   return auth.handler(req, res);
 });
 
