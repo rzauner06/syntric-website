@@ -6,8 +6,30 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
   globalIgnores(['dist']),
+  // Server files configuration (Node.js)
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['server/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: {
+        ...globals.node,
+      },
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+    },
+    rules: {
+      'no-unused-vars': ['error', {
+        varsIgnorePattern: '^[A-Z_]',
+        argsIgnorePattern: '^_',
+        ignoreRestSiblings: true
+      }],
+    },
+  },
+  // Client files configuration (React)
+  {
+    files: ['src/**/*.{js,jsx}'],
     extends: [
       js.configs.recommended,
       reactHooks.configs['recommended-latest'],
@@ -26,9 +48,10 @@ export default defineConfig([
       'no-unused-vars': ['error', {
         varsIgnorePattern: '^[A-Z_]|^motion$',
         destructuredArrayIgnorePattern: '^_',
-        argsIgnorePattern: '^_|^categoryIndex$',
+        argsIgnorePattern: '^_|^categoryIndex$|^index$',
         ignoreRestSiblings: true
       }],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
 ])
