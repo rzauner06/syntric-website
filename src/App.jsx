@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Cart from './components/Cart';
+import ShoppingCart from './components/ShoppingCart';
 import Home from './pages/Home';
 import AllProducts from './pages/AllProducts';
 import ProductDetail from './pages/ProductDetail';
@@ -27,7 +27,7 @@ function App() {
           <Router>
             <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
             <Navbar />
-            <Cart />
+            <ShoppingCart />
             <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<AllProducts />} />

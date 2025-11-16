@@ -16,6 +16,9 @@ const pool = new Pool({
 export const auth = betterAuth({
   database: pool,
 
+  // Base URL configuration - REQUIRED for BetterAuth to work properly
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false, // Set to true if you want email verification

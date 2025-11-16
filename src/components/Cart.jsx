@@ -14,7 +14,6 @@ const Cart = () => {
     removeFromCart,
     updateQuantity,
     getCartTotal,
-    toggleCart,
     setIsCartOpen
   } = useCart();
 
@@ -40,25 +39,6 @@ const Cart = () => {
 
   return (
     <>
-      {/* Cart Button - Fixed position */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={toggleCart}
-        className="fixed right-6 bottom-6 z-40 bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 rounded-full shadow-2xl hover:shadow-blue-500/50 transition-shadow"
-      >
-        <ShoppingCartIcon sx={{ fontSize: 28 }} />
-        {cartItems.length > 0 && (
-          <motion.span
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center"
-          >
-            {cartItems.reduce((count, item) => count + item.quantity, 0)}
-          </motion.span>
-        )}
-      </motion.button>
-
       {/* Cart Drawer */}
       <AnimatePresence>
         {isCartOpen && (
@@ -69,7 +49,7 @@ const Cart = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsCartOpen(false)}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
             />
 
             {/* Drawer */}
@@ -78,12 +58,12 @@ const Cart = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed right-0 top-0 h-full w-full md:w-[500px] bg-white dark:bg-gray-900 shadow-2xl z-50 flex flex-col"
+              className="fixed right-0 top-0 h-full w-full md:w-[500px] bg-white dark:bg-gray-900 shadow-2xl z-[70] flex flex-col"
             >
               {/* Header */}
               <div className="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-gradient-to-r from-blue-600 to-blue-700 text-white">
                 <div className="flex items-center gap-3">
-                  <ShoppingCartIcon sx={{ fontSize: 32 }} />
+                  <ShoppingCartIcon style={{ fontSize: 32 }} />
                   <div>
                     <h2 className="text-2xl font-bold">Your Cart</h2>
                     <p className="text-sm text-blue-100">
@@ -97,7 +77,7 @@ const Cart = () => {
                   onClick={() => setIsCartOpen(false)}
                   className="p-2 hover:bg-white/20 rounded-full transition-colors"
                 >
-                  <CloseIcon sx={{ fontSize: 28 }} />
+                  <CloseIcon style={{ fontSize: 28 }} />
                 </motion.button>
               </div>
 
@@ -106,7 +86,7 @@ const Cart = () => {
                 {cartItems.length === 0 ? (
                   <div className="h-full flex flex-col items-center justify-center text-center">
                     <ShoppingCartIcon
-                      sx={{ fontSize: 80 }}
+                      style={{ fontSize: 80 }}
                       className="text-gray-300 dark:text-gray-700 mb-4"
                     />
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
@@ -139,7 +119,7 @@ const Cart = () => {
                       >
                         <div className="flex gap-4">
                           {/* Product Icon */}
-                          <div className="text-4xl text-blue-600 dark:text-blue-400">
+                          <div className="text-blue-600 dark:text-blue-400 flex items-center justify-center" style={{ fontSize: '2.5rem' }}>
                             {item.product.icon}
                           </div>
 

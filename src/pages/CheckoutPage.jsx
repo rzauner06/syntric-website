@@ -9,7 +9,7 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 
 const CheckoutPage = () => {
-  const { cartItems, getCartTotal, clearCart } = useCart();
+  const { cartItems, getCartBreakdown, clearCart, getItemPrice } = useCart();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [orderPlaced, setOrderPlaced] = useState(false);
@@ -49,16 +49,14 @@ const CheckoutPage = () => {
     }
   }, [cartItems, orderPlaced, navigate]);
 
+  const breakdown = getCartBreakdown();
+  const { subtotal, tax, shipping, total, discount } = breakdown;
+
   const formatPrice = (price) => {
     if (price === 'Custom' || price === 'Free') return price;
     if (typeof price === 'string') return price;
-    return `$${price.toLocaleString()}`;
+    return `$${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
-
-  const subtotal = getCartTotal();
-  const tax = subtotal * 0.08;
-  const shipping = subtotal > 0 ? (subtotal >= 10000 ? 0 : 500) : 0;
-  const total = subtotal + tax + shipping;
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -138,7 +136,7 @@ const CheckoutPage = () => {
               <div className="flex justify-between">
                 <span className="text-gray-600 dark:text-gray-400">Total:</span>
                 <span className="font-bold text-2xl text-blue-600 dark:text-blue-400">
-                  ${total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  {formatPrice(total)}
                 </span>
               </div>
               <div className="flex justify-between">
@@ -570,21 +568,27 @@ const CheckoutPage = () => {
               <div className="space-y-2 pb-4 border-b border-gray-200 dark:border-gray-700">
                 <div className="flex justify-between text-gray-600 dark:text-gray-400">
                   <span>Subtotal</span>
-                  <span>${subtotal.toLocaleString()}</span>
+                  <span>{formatPrice(subtotal)}</span>
                 </div>
+                {discount > 0 && (
+                  <div className="flex justify-between text-green-600 dark:text-green-400">
+                    <span>Discount</span>
+                    <span>-{formatPrice(discount)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-gray-600 dark:text-gray-400">
                   <span>Tax (8%)</span>
-                  <span>${tax.toFixed(2)}</span>
+                  <span>{formatPrice(tax)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600 dark:text-gray-400">
                   <span>Shipping</span>
-                  <span>{shipping === 0 ? 'FREE' : `$${shipping.toLocaleString()}`}</span>
+                  <span>{shipping === 0 ? <span className="text-green-600 dark:text-green-400 font-semibold">FREE</span> : formatPrice(shipping)}</span>
                 </div>
               </div>
 
               <div className="flex justify-between text-xl font-bold text-gray-900 dark:text-white mt-4">
                 <span>Total</span>
-                <span>${total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                <span>{formatPrice(total)}</span>
               </div>
             </div>
           </div>

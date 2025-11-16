@@ -3,21 +3,30 @@ import { useEffect, useState } from 'react';
 import { products } from '../data/products';
 import { useCart } from '../contexts/CartContext';
 import Footer from '../components/Footer';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ProductGrid from '../components/ProductGrid';
 
 const ShopPage = () => {
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedOptions, setSelectedOptions] = useState({});
-  const { addToCart, toggleCart } = useCart();
+  const { addToCart, openCart } = useCart();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Filter purchasable products: 3D Printers and Software only (no CNC, no Pick & Place)
+  // Filter purchasable products
   const purchasableProducts = products.filter(
     (p) => p.slug === '3d-printers' || p.category === 'Software'
   );
+
+  // Filter by category
+  const filteredProducts = selectedCategory === 'All'
+    ? purchasableProducts
+    : purchasableProducts.filter(p => p.category === selectedCategory);
+
+  // Get unique categories
+  const categories = ['All', ...new Set(purchasableProducts.map(p => p.category))];
 
   // Product configuration options
   const productConfigurations = {
@@ -96,35 +105,33 @@ const ShopPage = () => {
   const handleAddToCart = () => {
     if (!selectedProduct) return;
 
-    let price = 0;
-    let itemName = selectedProduct.name;
-    let options = { ...selectedOptions };
+    let variant = null;
 
     if (selectedProduct.slug === '3d-printers') {
       const model = productConfigurations['3d-printers'].models.find(
         m => m.name === selectedOptions.model
       );
-      price = model?.price || 0;
-      itemName = `${selectedProduct.name} - ${selectedOptions.model}`;
+      variant = {
+        name: selectedOptions.model,
+        price: model?.price || 0,
+        color: selectedOptions.color,
+        buildVolume: selectedOptions.buildVolume
+      };
     } else {
       // Software product
       const config = productConfigurations[selectedProduct.slug];
       const tier = config?.tiers.find(t => t.name === selectedOptions.tier);
-      price = tier?.price || 0;
-      itemName = `${selectedProduct.name} - ${selectedOptions.tier}`;
+      variant = {
+        name: selectedOptions.tier,
+        price: tier?.price === 'custom' ? 'Custom' : tier?.price || 0,
+        priceLabel: tier?.priceLabel
+      };
     }
 
-    const cartItem = {
-      id: `${selectedProduct.id}-${Date.now()}`,
-      productId: selectedProduct.id,
-      name: itemName,
-      price: price === 'custom' ? 'custom' : price,
-      selectedOptions: options,
-      icon: selectedProduct.icon
-    };
-
-    addToCart(cartItem);
-    toggleCart();
+    addToCart(selectedProduct, variant, 1);
+    openCart();
+    setSelectedProduct(null);
+    setSelectedOptions({});
   };
 
   const isConfigComplete = () => {
@@ -156,13 +163,13 @@ const ShopPage = () => {
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-6">
-        <div className="max-w-5xl mx-auto text-center">
+        <div className="max-w-7xl mx-auto text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight"
           >
-            Shop <span className="text-gradient">SYNTRIQ</span>
+            Shop <span className="text-gradient bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">SYNTRIQ</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -170,79 +177,43 @@ const ShopPage = () => {
             transition={{ delay: 0.1 }}
             className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
           >
-            Choose your perfect manufacturing solution
+            Innovative manufacturing solutions for the modern workshop
           </motion.p>
         </div>
       </section>
 
       {!selectedProduct ? (
-        /* Product Selection Grid */
-        <section className="pb-20 px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
-              {purchasableProducts.map((product, index) => (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => {
-                    setSelectedProduct(product);
-                    setSelectedOptions({});
-                  }}
-                  className="group cursor-pointer"
-                >
-                  <div className="bg-gray-50 dark:bg-gray-800 rounded-3xl overflow-hidden border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400 transition-all hover:shadow-2xl">
-                    {/* Product Image Placeholder */}
-                    <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center p-12">
-                      <div className="text-9xl transform group-hover:scale-110 transition-transform duration-300">
-                        {product.icon}
-                      </div>
-                    </div>
-
-                    {/* Product Info */}
-                    <div className="p-8">
-                      {product.status === 'coming-soon' && (
-                        <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 mb-3">
-                          {product.comingSoonBadge || 'Coming Soon'}
-                        </span>
-                      )}
-                      <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                        {product.name}
-                      </h3>
-                      <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-                        {product.tagline}
-                      </p>
-
-                      {/* Pricing hint */}
-                      <div className="text-gray-900 dark:text-white">
-                        {product.slug === '3d-printers' && (
-                          <div className="text-2xl font-semibold">From $2,499</div>
-                        )}
-                        {product.pricing && (
-                          <div className="text-2xl font-semibold">
-                            {product.pricing.starter.price === 'Free' ? 'Free' : 'From'}
-                            {product.pricing.starter.price !== 'Free' && ` ${product.pricing.professional.price}`}
-                          </div>
-                        )}
-                      </div>
-
-                      <motion.div
-                        className="mt-6 text-blue-600 dark:text-blue-400 font-semibold flex items-center gap-2"
-                        whileHover={{ gap: 12 }}
-                      >
-                        {product.status === 'coming-soon' ? 'Learn more' : 'Buy now'}
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </motion.div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+        <>
+          {/* Category Filter */}
+          <section className="pb-12 px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="flex flex-wrap justify-center gap-3">
+                {categories.map((category) => (
+                  <motion.button
+                    key={category}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-6 py-3 rounded-full font-semibold transition-all ${
+                      selectedCategory === category
+                        ? 'bg-blue-600 text-white shadow-lg'
+                        : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700'
+                    }`}
+                  >
+                    {category}
+                  </motion.button>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+
+          {/* Product Grid */}
+          <section className="pb-20 px-6">
+            <div className="max-w-7xl mx-auto">
+              <ProductGrid products={filteredProducts} columns={3} />
+            </div>
+          </section>
+        </>
       ) : (
         /* Product Configuration Page */
         <section className="pb-20 px-6">
@@ -313,7 +284,9 @@ const ShopPage = () => {
                         <div className="flex items-start justify-between mb-2">
                           <h4 className="font-bold text-lg text-gray-900 dark:text-white">{model.name}</h4>
                           {selectedOptions.model === model.name && (
-                            <CheckCircleIcon className="text-blue-600 dark:text-blue-400" />
+                            <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                            </svg>
                           )}
                         </div>
                         <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{model.description}</p>
@@ -395,7 +368,9 @@ const ShopPage = () => {
                       <div className="flex items-start justify-between mb-4">
                         <h4 className="font-bold text-2xl text-gray-900 dark:text-white">{tier.name}</h4>
                         {selectedOptions.tier === tier.name && (
-                          <CheckCircleIcon className="text-blue-600 dark:text-blue-400" sx={{ fontSize: 28 }} />
+                          <svg className="w-7 h-7 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                          </svg>
                         )}
                       </div>
                       <p className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
@@ -458,7 +433,9 @@ const ShopPage = () => {
                     transition={{ delay: idx * 0.05 }}
                     className="flex items-start gap-3 p-4"
                   >
-                    <CheckCircleIcon className="text-blue-600 dark:text-blue-400 flex-shrink-0" />
+                    <svg className="w-6 h-6 text-blue-600 dark:text-blue-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                    </svg>
                     <span className="text-gray-700 dark:text-gray-300">{feature}</span>
                   </motion.div>
                 ))}
