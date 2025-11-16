@@ -239,7 +239,7 @@ const ZCADPage = () => {
           </p>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {Object.entries(product.pricing).map(([key, plan], index) => (
+            {Object.entries(product.pricing).map(([key, plan], _index) => (
               <motion.div
                 key={key}
                 whileHover={{

@@ -18,7 +18,7 @@ const SignInPage = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   // const { signIn } = useAuth();
-  const navigate = useNavigate();
+  const _navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

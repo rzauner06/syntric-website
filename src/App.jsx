@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import CartSidebar from './components/CartSidebar';
 import Home from './pages/Home';
 import AllProducts from './pages/AllProducts';
 import ProductDetail from './pages/ProductDetail';
@@ -11,14 +12,19 @@ import Features from './components/Features';
 import Footer from './components/Footer';
 import GenericPage from './pages/GenericPage';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { CartProvider } from './contexts/CartContext';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-        <Navbar />
-        <Routes>
+      <AuthProvider>
+        <CartProvider>
+          <Router>
+            <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+            <Navbar />
+            <CartSidebar />
+            <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<AllProducts />} />
           <Route path="/products/zcad" element={<ZCADPage />} />
@@ -46,9 +52,11 @@ function App() {
           <Route path="/terms" element={<GenericPage title="Terms of Service" description="Terms and conditions for using SYNTRIQ products and services." />} />
           <Route path="/cookies" element={<GenericPage title="Cookie Policy" description="Information about how we use cookies and similar technologies." />} />
           <Route path="/compliance" element={<GenericPage title="Compliance" description="Our commitment to regulatory compliance and industry standards." />} />
-        </Routes>
-        </div>
-      </Router>
+            </Routes>
+            </div>
+          </Router>
+        </CartProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

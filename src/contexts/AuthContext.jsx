@@ -5,6 +5,7 @@
  * To implement, uncomment the code below and integrate with better-auth.
  */
 
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext(null);
@@ -14,68 +15,105 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // TODO: Implement authentication logic with better-auth
+  // Check for existing session on mount
   useEffect(() => {
-    // Example: Check for existing session on mount
-    // const checkSession = async () => {
-    //   try {
-    //     const session = await auth.getSession();
-    //     if (session) {
-    //       setUser(session.user);
-    //       setIsAuthenticated(true);
-    //     }
-    //   } catch (error) {
-    //     console.error('Session check failed:', error);
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
-    // checkSession();
-
-    // For now, just set loading to false
+    const storedUser = localStorage.getItem('syntriq-user');
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error('Error parsing stored user:', error);
+        localStorage.removeItem('syntriq-user');
+      }
+    }
     setLoading(false);
   }, []);
 
-  // Authentication methods (to be implemented)
+  // Save user to localStorage whenever it changes
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('syntriq-user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('syntriq-user');
+    }
+  }, [user]);
+
+  // Authentication methods
   const signUp = async (email, password, name) => {
-    // TODO: Implement sign up with better-auth
-    // try {
-    //   const result = await auth.signUp.email({ email, password, name });
-    //   setUser(result.user);
-    //   setIsAuthenticated(true);
-    //   return result;
-    // } catch (error) {
-    //   console.error('Sign up failed:', error);
-    //   throw error;
-    // }
-    console.log('Sign up not implemented yet');
+    setLoading(true);
+    try {
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      // Check if user already exists
+      const existingUsers = JSON.parse(localStorage.getItem('syntriq-users') || '[]');
+      const userExists = existingUsers.find(u => u.email === email);
+
+      if (userExists) {
+        throw new Error('User with this email already exists');
+      }
+
+      // Create new user
+      const newUser = {
+        id: Date.now().toString(),
+        email,
+        name,
+        createdAt: new Date().toISOString(),
+      };
+
+      // Store in "database" (localStorage)
+      existingUsers.push({ ...newUser, password }); // Note: In production, use Better Auth's secure backend
+      localStorage.setItem('syntriq-users', JSON.stringify(existingUsers));
+
+      setUser(newUser);
+      setIsAuthenticated(true);
+      return { success: true, user: newUser };
+    } catch (error) {
+      console.error('Sign up failed:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
   };
 
   const signIn = async (email, password) => {
-    // TODO: Implement sign in with better-auth
-    // try {
-    //   const result = await auth.signIn.email({ email, password });
-    //   setUser(result.user);
-    //   setIsAuthenticated(true);
-    //   return result;
-    // } catch (error) {
-    //   console.error('Sign in failed:', error);
-    //   throw error;
-    // }
-    console.log('Sign in not implemented yet');
+    setLoading(true);
+    try {
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      // Check credentials
+      const existingUsers = JSON.parse(localStorage.getItem('syntriq-users') || '[]');
+      const foundUser = existingUsers.find(u => u.email === email && u.password === password);
+
+      if (!foundUser) {
+        throw new Error('Invalid email or password');
+      }
+
+      // Return user without password
+      const { password: _, ...userWithoutPassword } = foundUser;
+      setUser(userWithoutPassword);
+      setIsAuthenticated(true);
+      return { success: true, user: userWithoutPassword };
+    } catch (error) {
+      console.error('Sign in failed:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
   };
 
   const signOut = async () => {
-    // TODO: Implement sign out with better-auth
-    // try {
-    //   await auth.signOut();
-    //   setUser(null);
-    //   setIsAuthenticated(false);
-    // } catch (error) {
-    //   console.error('Sign out failed:', error);
-    //   throw error;
-    // }
-    console.log('Sign out not implemented yet');
+    try {
+      setUser(null);
+      setIsAuthenticated(false);
+      return { success: true };
+    } catch (error) {
+      console.error('Sign out failed:', error);
+      throw error;
+    }
   };
 
   const value = {
