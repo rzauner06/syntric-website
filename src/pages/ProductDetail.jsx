@@ -1,17 +1,46 @@
 import { motion } from 'framer-motion';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getProductBySlug, products } from '../data/products';
+import { useCart } from '../contexts/CartContext';
 import Footer from '../components/Footer';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const ProductDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const product = getProductBySlug(slug);
+  const { addToCart } = useCart();
+
+  const [selectedVariant, setSelectedVariant] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [addedToCart, setAddedToCart] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
+
+  useEffect(() => {
+    // Set default variant if product has variants
+    if (product && product.variants && product.variants.length > 0) {
+      setSelectedVariant(product.variants[0]);
+    }
+  }, [product]);
+
+  const handleAddToCart = () => {
+    if (product) {
+      addToCart(product, selectedVariant, quantity);
+      setAddedToCart(true);
+      setTimeout(() => setAddedToCart(false), 3000);
+    }
+  };
+
+  const formatPrice = (price) => {
+    if (price === 'Custom' || price === 'Free') return price;
+    if (typeof price === 'string') return price;
+    return `$${price.toLocaleString()}`;
+  };
 
   if (!product) {
     return (
@@ -90,6 +119,103 @@ const ProductDetail = () => {
               {product.description}
             </p>
 
+            {/* Variant Selection */}
+            {product.variants && product.variants.length > 0 && (
+              <div className="mb-8">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                  Choose Your Configuration
+                </h3>
+                <div className="grid md:grid-cols-3 gap-4">
+                  {product.variants.map((variant) => (
+                    <motion.button
+                      key={variant.name}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setSelectedVariant(variant)}
+                      className={`p-6 rounded-xl border-2 text-left transition-all ${
+                        selectedVariant?.name === variant.name
+                          ? 'border-blue-600 bg-blue-50 dark:border-blue-400 dark:bg-blue-900/20'
+                          : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500'
+                      }`}
+                    >
+                      <div className="flex items-start justify-between mb-2">
+                        <h4 className="font-bold text-lg text-gray-900 dark:text-white">
+                          {variant.name}
+                        </h4>
+                        {selectedVariant?.name === variant.name && (
+                          <CheckCircleIcon className="text-blue-600 dark:text-blue-400" />
+                        )}
+                      </div>
+                      <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                        {formatPrice(variant.price)}
+                        {variant.priceLabel && variant.priceLabel.includes('month') && (
+                          <span className="text-sm text-gray-500 dark:text-gray-400">/mo</span>
+                        )}
+                      </p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                        {variant.description}
+                      </p>
+                      {variant.features && (
+                        <ul className="space-y-1">
+                          {variant.features.slice(0, 3).map((feature, idx) => (
+                            <li key={idx} className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                              <CheckCircleIcon sx={{ fontSize: 14 }} className="text-green-500" />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Price Display */}
+            <div className="mb-8">
+              <div className="text-4xl font-bold text-gray-900 dark:text-white">
+                {selectedVariant
+                  ? formatPrice(selectedVariant.price)
+                  : formatPrice(product.basePrice)}
+                {selectedVariant?.priceLabel && selectedVariant.priceLabel.includes('month') && (
+                  <span className="text-lg text-gray-500 dark:text-gray-400 ml-2">/month</span>
+                )}
+              </div>
+              {product.priceLabel && !selectedVariant && (
+                <p className="text-gray-600 dark:text-gray-400 mt-2">{product.priceLabel}</p>
+              )}
+            </div>
+
+            {/* Quantity Selector (for hardware products) */}
+            {product.category === 'Hardware' && product.status === 'available' && (
+              <div className="mb-8">
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  Quantity
+                </label>
+                <div className="flex items-center gap-4">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    className="w-12 h-12 rounded-full border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-bold hover:border-blue-500 dark:hover:border-blue-400 transition-colors"
+                  >
+                    -
+                  </motion.button>
+                  <span className="text-2xl font-bold text-gray-900 dark:text-white min-w-[3rem] text-center">
+                    {quantity}
+                  </span>
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="w-12 h-12 rounded-full border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-bold hover:border-blue-500 dark:hover:border-blue-400 transition-colors"
+                  >
+                    +
+                  </motion.button>
+                </div>
+              </div>
+            )}
+
             {/* CTA Buttons */}
             <div className="flex flex-wrap items-center justify-center gap-4">
               {product.status === 'available' ? (
@@ -97,17 +223,28 @@ const ProductDetail = () => {
                   <motion.button
                     whileHover={{ scale: 1.05, boxShadow: '0 10px 30px -5px rgba(59, 130, 246, 0.4)' }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg"
+                    onClick={handleAddToCart}
+                    className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg flex items-center gap-2"
                   >
-                    Request Quote
+                    {addedToCart ? (
+                      <>
+                        <CheckCircleIcon /> Added to Cart!
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingCartIcon /> Add to Cart
+                      </>
+                    )}
                   </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 px-8 py-4 rounded-full font-semibold text-lg border-2 border-blue-600 dark:border-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors duration-300"
-                  >
-                    Download Brochure
-                  </motion.button>
+                  <Link to="/shop">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 px-8 py-4 rounded-full font-semibold text-lg border-2 border-blue-600 dark:border-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors duration-300"
+                    >
+                      Continue Shopping
+                    </motion.button>
+                  </Link>
                 </>
               ) : (
                 <>

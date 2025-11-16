@@ -4,21 +4,17 @@ import { Link } from 'react-router-dom';
 import MegaMenu from './Navigation/MegaMenu';
 import MobileMenu from './Navigation/MobileMenu';
 import ThemeToggle from './ThemeToggle';
-import AuthModal from './AuthModal';
+import { useSession } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
-import { useAuth } from '../contexts/AuthContext';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import PersonIcon from '@mui/icons-material/Person';
-import LogoutIcon from '@mui/icons-material/Logout';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const { toggleCart, getCartCount } = useCart();
-  const { user, isAuthenticated, signOut } = useAuth();
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const { data: session, isPending } = useSession();
+  const { toggleCart, getCartItemCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,6 +35,18 @@ const Navbar = () => {
       return () => clearTimeout(timer);
     }
   }, [megaMenuOpen]);
+
+  // Close profile menu when clicking outside
+  useEffect(() => {
+    if (profileMenuOpen) {
+      const timer = setTimeout(() => {
+        const handleClickOutside = () => setProfileMenuOpen(false);
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+      }, 0);
+      return () => clearTimeout(timer);
+    }
+  }, [profileMenuOpen]);
 
   return (
     <>
@@ -129,65 +137,95 @@ const Navbar = () => {
                 className="relative p-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <ShoppingBagIcon sx={{ fontSize: 28 }} />
-                {getCartCount() > 0 && (
+                {getCartItemCount() > 0 && (
                   <motion.span
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
                   >
-                    {getCartCount()}
+                    {getCartItemCount()}
                   </motion.span>
                 )}
               </motion.button>
 
-              {/* Auth Section */}
-              {isAuthenticated ? (
-                <div className="relative">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setUserMenuOpen(!userMenuOpen)}
-                    className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                  >
-                    <PersonIcon sx={{ fontSize: 20 }} className="text-blue-600 dark:text-blue-400" />
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">
-                      {user?.name || 'Account'}
-                    </span>
-                  </motion.button>
-
-                  {/* User Dropdown */}
-                  {userMenuOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden"
+              {/* Authentication Section */}
+              {!isPending && (
+                session?.user ? (
+                  // User is logged in - show profile dropdown
+                  <div className="relative">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                      className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                     >
-                      <div className="p-3 border-b border-gray-200 dark:border-gray-700">
-                        <p className="text-sm font-medium text-gray-900 dark:text-white">{user?.name}</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user?.email}</p>
+                      <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold text-sm">
+                        {session.user.name?.[0]?.toUpperCase() || session.user.email[0].toUpperCase()}
                       </div>
-                      <button
-                        onClick={() => {
-                          signOut();
-                          setUserMenuOpen(false);
-                        }}
-                        className="w-full flex items-center gap-2 px-4 py-3 text-left text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                      <span className="font-medium">{session.user.name || 'Account'}</span>
+                      <motion.svg
+                        animate={{ rotate: profileMenuOpen ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
-                        <LogoutIcon sx={{ fontSize: 18 }} />
-                        Sign Out
-                      </button>
-                    </motion.div>
-                  )}
-                </div>
-              ) : (
-                <motion.button
-                  whileHover={{ scale: 1.05, boxShadow: '0 10px 25px -5px rgba(59, 130, 246, 0.3)' }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setAuthModalOpen(true)}
-                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-full font-medium hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg"
-                >
-                  Sign In
-                </motion.button>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </motion.svg>
+                    </motion.button>
+
+                    {/* Profile Dropdown */}
+                    {profileMenuOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden"
+                      >
+                        <Link to="/profile" onClick={() => setProfileMenuOpen(false)}>
+                          <div className="px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                            <p className="text-sm font-medium text-gray-900 dark:text-white">My Profile</p>
+                          </div>
+                        </Link>
+                        <div className="border-t border-gray-200 dark:border-gray-700">
+                          <Link to="/login" onClick={() => setProfileMenuOpen(false)}>
+                            <div className="px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                              <p className="text-sm font-medium text-red-600 dark:text-red-400">Sign Out</p>
+                            </div>
+                          </Link>
+                        </div>
+                      </motion.div>
+                    )}
+                  </div>
+                ) : (
+                  // User is not logged in - show login/register buttons
+                  <div className="flex items-center gap-3">
+                    <Link to="/login">
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium px-4 py-2"
+                      >
+                        Sign In
+                      </motion.button>
+                    </Link>
+                    <Link to="/register">
+                      <motion.button
+                        whileHover={{ scale: 1.05, boxShadow: '0 10px 25px -5px rgba(59, 130, 246, 0.3)' }}
+                        whileTap={{ scale: 0.95 }}
+                        className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-full font-medium hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg"
+                      >
+                        Get Started
+                      </motion.button>
+                    </Link>
+                  </div>
+                )
               )}
             </div>
 
@@ -202,13 +240,13 @@ const Navbar = () => {
                 className="relative p-2 text-gray-700 dark:text-gray-300"
               >
                 <ShoppingBagIcon sx={{ fontSize: 24 }} />
-                {getCartCount() > 0 && (
+                {getCartItemCount() > 0 && (
                   <motion.span
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
                   >
-                    {getCartCount()}
+                    {getCartItemCount()}
                   </motion.span>
                 )}
               </motion.button>
@@ -235,9 +273,6 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
-
-      {/* Auth Modal */}
-      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
     </>
   );
 };

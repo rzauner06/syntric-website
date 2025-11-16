@@ -2,114 +2,48 @@
  * Authentication Context
  *
  * This context provides authentication state and methods throughout the application.
- * To implement, uncomment the code below and integrate with better-auth.
+ * Integrated with better-auth for robust authentication.
  */
 
-/* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext } from 'react';
+import { authClient } from '../lib/auth-client';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // BetterAuth handles session management internally via hooks
+  // We'll provide the client and helper methods through context
 
-  // Check for existing session on mount
-  useEffect(() => {
-    const storedUser = localStorage.getItem('syntriq-user');
-    if (storedUser) {
-      try {
-        const parsedUser = JSON.parse(storedUser);
-        setUser(parsedUser);
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.error('Error parsing stored user:', error);
-        localStorage.removeItem('syntriq-user');
-      }
-    }
-    setLoading(false);
-  }, []);
-
-  // Save user to localStorage whenever it changes
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem('syntriq-user', JSON.stringify(user));
-    } else {
-      localStorage.removeItem('syntriq-user');
-    }
-  }, [user]);
-
-  // Authentication methods
   const signUp = async (email, password, name) => {
-    setLoading(true);
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 800));
-
-      // Check if user already exists
-      const existingUsers = JSON.parse(localStorage.getItem('syntriq-users') || '[]');
-      const userExists = existingUsers.find(u => u.email === email);
-
-      if (userExists) {
-        throw new Error('User with this email already exists');
-      }
-
-      // Create new user
-      const newUser = {
-        id: Date.now().toString(),
+      const result = await authClient.signUp.email({
         email,
+        password,
         name,
-        createdAt: new Date().toISOString(),
-      };
-
-      // Store in "database" (localStorage)
-      existingUsers.push({ ...newUser, password }); // Note: In production, use Better Auth's secure backend
-      localStorage.setItem('syntriq-users', JSON.stringify(existingUsers));
-
-      setUser(newUser);
-      setIsAuthenticated(true);
-      return { success: true, user: newUser };
+      });
+      return result;
     } catch (error) {
       console.error('Sign up failed:', error);
       throw error;
-    } finally {
-      setLoading(false);
     }
   };
 
   const signIn = async (email, password) => {
-    setLoading(true);
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 800));
-
-      // Check credentials
-      const existingUsers = JSON.parse(localStorage.getItem('syntriq-users') || '[]');
-      const foundUser = existingUsers.find(u => u.email === email && u.password === password);
-
-      if (!foundUser) {
-        throw new Error('Invalid email or password');
-      }
-
-      // Return user without password
-      const { password: _, ...userWithoutPassword } = foundUser;
-      setUser(userWithoutPassword);
-      setIsAuthenticated(true);
-      return { success: true, user: userWithoutPassword };
+      const result = await authClient.signIn.email({
+        email,
+        password,
+      });
+      return result;
     } catch (error) {
       console.error('Sign in failed:', error);
       throw error;
-    } finally {
-      setLoading(false);
     }
   };
 
   const signOut = async () => {
     try {
-      setUser(null);
-      setIsAuthenticated(false);
-      return { success: true };
+      await authClient.signOut();
     } catch (error) {
       console.error('Sign out failed:', error);
       throw error;
@@ -117,12 +51,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const value = {
-    user,
-    loading,
-    isAuthenticated,
     signUp,
     signIn,
     signOut,
+    // Expose the auth client for advanced usage
+    authClient,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -135,6 +68,11 @@ export const useAuth = () => {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
+};
+
+// Re-export useSession hook from better-auth for convenience
+export const useSession = () => {
+  return authClient.useSession();
 };
 
 export default AuthContext;

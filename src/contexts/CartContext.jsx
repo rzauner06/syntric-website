@@ -13,10 +13,11 @@ export const useCart = () => {
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
-    // Load cart from localStorage on init
+    // Load cart from localStorage on initialization
     const savedCart = localStorage.getItem('syntriq-cart');
     return savedCart ? JSON.parse(savedCart) : [];
   });
+
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   // Save cart to localStorage whenever it changes
@@ -24,79 +25,98 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('syntriq-cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (item) => {
-    setCartItems((prevItems) => {
-      // Check if item already exists in cart
+  // Add item to cart
+  const addToCart = (product, variant = null, quantity = 1) => {
+    setCartItems(prevItems => {
       const existingItemIndex = prevItems.findIndex(
-        (cartItem) =>
-          cartItem.productId === item.productId &&
-          JSON.stringify(cartItem.selectedOptions) === JSON.stringify(item.selectedOptions)
+        item => item.product.id === product.id &&
+                (variant ? item.variant?.name === variant.name : !item.variant)
       );
 
       if (existingItemIndex > -1) {
-        // Update quantity if item exists
-        const newItems = [...prevItems];
-        newItems[existingItemIndex].quantity += item.quantity || 1;
-        return newItems;
-      } else {
-        // Add new item
-        return [...prevItems, { ...item, quantity: item.quantity || 1 }];
+        // Update quantity if item already exists
+        const updatedItems = [...prevItems];
+        updatedItems[existingItemIndex].quantity += quantity;
+        return updatedItems;
       }
+
+      // Add new item
+      return [...prevItems, {
+        product,
+        variant,
+        quantity,
+        addedAt: new Date().toISOString()
+      }];
     });
   };
 
-  const removeFromCart = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
-  };
-
-  const updateQuantity = (itemId, quantity) => {
-    if (quantity <= 0) {
-      removeFromCart(itemId);
-      return;
-    }
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === itemId ? { ...item, quantity } : item
+  // Remove item from cart
+  const removeFromCart = (productId, variantName = null) => {
+    setCartItems(prevItems =>
+      prevItems.filter(item =>
+        !(item.product.id === productId &&
+          (variantName ? item.variant?.name === variantName : !item.variant))
       )
     );
   };
 
+  // Update item quantity
+  const updateQuantity = (productId, variantName = null, quantity) => {
+    if (quantity <= 0) {
+      removeFromCart(productId, variantName);
+      return;
+    }
+
+    setCartItems(prevItems =>
+      prevItems.map(item =>
+        item.product.id === productId &&
+        (variantName ? item.variant?.name === variantName : !item.variant)
+          ? { ...item, quantity }
+          : item
+      )
+    );
+  };
+
+  // Clear entire cart
   const clearCart = () => {
     setCartItems([]);
   };
 
+  // Get cart total
   const getCartTotal = () => {
-    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return cartItems.reduce((total, item) => {
+      const price = item.variant?.price || item.product.basePrice || 0;
+      // Handle "Custom" pricing
+      if (price === 'Custom' || price === 'Free') return total;
+      // Extract numeric value from string like "$49/month"
+      const numericPrice = typeof price === 'string'
+        ? parseFloat(price.replace(/[^0-9.]/g, '')) || 0
+        : price;
+      return total + (numericPrice * item.quantity);
+    }, 0);
   };
 
-  const getCartCount = () => {
+  // Get cart item count
+  const getCartItemCount = () => {
     return cartItems.reduce((count, item) => count + item.quantity, 0);
   };
 
+  // Toggle cart drawer
   const toggleCart = () => {
-    setIsCartOpen(!isCartOpen);
-  };
-
-  const openCart = () => {
-    setIsCartOpen(true);
-  };
-
-  const closeCart = () => {
-    setIsCartOpen(false);
+    setIsCartOpen(prev => !prev);
   };
 
   const value = {
     cartItems,
+    isCartOpen,
     addToCart,
     removeFromCart,
     updateQuantity,
     clearCart,
     getCartTotal,
-    getCartCount,
-    isCartOpen,
+    getCartItemCount,
     toggleCart,
-    openCart,
-    closeCart,
+    setIsCartOpen
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import CartSidebar from './components/CartSidebar';
+import Cart from './components/Cart';
 import Home from './pages/Home';
 import AllProducts from './pages/AllProducts';
 import ProductDetail from './pages/ProductDetail';
@@ -8,6 +8,10 @@ import ZCADPage from './pages/ZCADPage';
 import Q1Product from './pages/Q1Product';
 import AboutPage from './pages/AboutPage';
 import ShopPage from './pages/ShopPage';
+import CheckoutPage from './pages/CheckoutPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import ProfilePage from './pages/ProfilePage';
 import Features from './components/Features';
 import Footer from './components/Footer';
 import GenericPage from './pages/GenericPage';
@@ -23,7 +27,7 @@ function App() {
           <Router>
             <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
             <Navbar />
-            <CartSidebar />
+            <Cart />
             <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<AllProducts />} />
@@ -33,7 +37,13 @@ function App() {
           <Route path="/features" element={<div className="pt-20"><Features /><Footer /></div>} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/shop" element={<ShopPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/contact" element={<GenericPage title="Contact Us" description="Get in touch with our team. We're here to help with your questions and inquiries." />} />
+
+          {/* Authentication Pages */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
 
           {/* Company Pages */}
           <Route path="/careers" element={<GenericPage title="Careers" description="Join our team and help shape the future of manufacturing technology." />} />

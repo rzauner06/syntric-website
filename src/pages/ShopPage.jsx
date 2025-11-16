@@ -8,7 +8,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 const ShopPage = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedOptions, setSelectedOptions] = useState({});
-  const { addToCart, openCart } = useCart();
+  const { addToCart, toggleCart } = useCart();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -124,7 +124,7 @@ const ShopPage = () => {
     };
 
     addToCart(cartItem);
-    openCart();
+    toggleCart();
   };
 
   const isConfigComplete = () => {

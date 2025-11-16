@@ -6,11 +6,12 @@ const Footer = () => {
 
   const footerLinks = {
     Products: [
-      { name: '3D Printers', path: '/products' },
-      { name: 'CNC Machines', path: '/products' },
-      { name: 'Pick & Place', path: '/products' },
-      { name: 'Accessories', path: '/products' },
-      { name: 'Software', path: '/products' }
+      { name: '3D Printers', path: '/products/3d-printers' },
+      { name: 'CNC Machines', path: '/products/cnc-machines' },
+      { name: 'Pick & Place', path: '/products/pick-and-place' },
+      { name: 'ZCAD', path: '/products/zcad' },
+      { name: 'Syntric Slicer', path: '/products/slicer' },
+      { name: 'Syntric CAD', path: '/products/cad' }
     ],
     Company: [
       { name: 'About Us', path: '/about' },

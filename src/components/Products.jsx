@@ -76,7 +76,7 @@ const Products = () => {
             Our <span className="text-gradient">Solutions</span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Cutting-edge manufacturing equipment and professional software designed for precision, reliability, and performance.
+            Innovative manufacturing equipment and intelligent software engineered to inspire excellence, drive precision, and unlock your full production potential.
           </p>
         </motion.div>
 
@@ -109,11 +109,11 @@ const Products = () => {
                 />
                 <span className="text-blue-800 font-bold">Coming Soon</span>
               </motion.div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
                 Next-Generation <span className="text-gradient">Software</span>
               </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Revolutionary software solutions to streamline your workflow
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                Pioneering software solutions designed to revolutionize your workflow and empower innovation at every step
               </p>
             </motion.div>
 
